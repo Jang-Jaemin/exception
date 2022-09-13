@@ -1,3 +1,33 @@
+//  서블릿예외처리 - 오류페이지작동원리
+//  서블릿은Exception(예외)가발생해서서블릿밖으로전달되거나또는response.
+//  sendError()가호출 되었을때설정된오류페이지를찾는다.
+
+//  예외 발생 흐름
+//  WAS(여기까지 전파) <- 필터 <- 서블릿 <- 인터셉터 <- 컨트롤러(예외발생)
+
+//  sendError 흐름
+//  WAS(sendError 호출 기록 확인) <- 필터 <- 서블릿 <- 인터셉터 <- 컨트롤러 (response.sendError())
+//  WAS는해당예외를처리하는오류페이지정보를확인한다.
+//  new ErrorPage(RuntimeException.class, "/error-page/500")
+
+//  예를들어서RuntimeException 예외가 WAS까지전달되면, WAS는오류페이지정보를확인한다.
+//  확인해보니RuntimeException의오류페이지로/error-page/500이지정되어있다.
+//  WAS는오류 페이지를출력하기위해/error-page/500를다시요청한다.
+
+//  오류페이지요청흐름
+//  WAS `/error-page/500` 다시 요청 -> 필터 -> 서블릿 -> 인터셉터 -> 컨트롤러(/error-page/ 500) -> View
+
+//  예외발생과오류페이지요청흐름
+//  1. WAS(여기까지 전파) <- 필터 <- 서블릿 <- 인터셉터 <- 컨트롤러(예외발생)
+//  2. WAS `/error-page/500` 다시 요청 -> 필터 -> 서블릿 -> 인터셉터 -> 컨트롤러(/error-page/500) -> View
+//  중요한점은웹브라우저(클라이언트)는서버내부에서이런일이일어나는지전혀모른다는점이다.
+//  오직 서버내부에서오류페이지를찾기위해추가적인호출을한다.
+
+//  정리하면 1. 예외가발생해서 WAS까지전파된다.
+//  2.  WAS는오류페이지경로를찾아서내부에서오류페이지를호출한다. 이때오류페이지경로로필터, 서블릿, 인터셉터, 컨트롤러가모두다시호출된다.
+
+
+
 package hello.exception.servlet;
 
 import lombok.extern.slf4j.Slf4j;
