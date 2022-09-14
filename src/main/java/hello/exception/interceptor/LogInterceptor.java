@@ -1,3 +1,12 @@
+//  서블릿예외처리 - 인터셉터 인터셉터중복호출제거
+//  LogInterceptor - DispatcherType 로그추가
+
+//  필터를등록할때어떤DispatcherType인경우에필터를적용할지선택할수 있었다.
+//  그런데인터셉터는서블릿이제공하는기능이아니라스프링이제공하는기능이다.
+//  따라서 DispatcherType과무관하게항상호출된다.
+//  대신에인터셉터는다음과같이요청경로에따라서추가하거나제외하기쉽게되어있기때문에,
+//  이러한 설정을사용해서오류페이지경로를excludePathPatterns를사용해서빼주면된다.
+
 package hello.exception.interceptor;
 
 import lombok.extern.slf4j.Slf4j;

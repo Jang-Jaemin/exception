@@ -94,3 +94,11 @@ public class ErrorPageController {
         log.info("dispatchType={}", request.getDispatcherType());
     }
 }
+
+//  request.attribute에서버가담아준정보
+//  javax.servlet.error.exception: 예외
+//  javax.servlet.error.exception_type: 예외타입
+//  javax.servlet.error.message: 오류메시지
+//  javax.servlet.error.request_uri: 클라이언트요청 URI
+//  javax.servlet.error.servlet_name: 오류가발생한서블릿이름
+//  javax.servlet.error.status_code: HTTP 상태코드

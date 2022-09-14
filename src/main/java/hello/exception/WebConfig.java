@@ -32,7 +32,8 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(new UserHandlerExceptionResolver());
     }
 
-    //    @Bean
+    //    @Bean => 인터셉터와중복으로처리되지않기위해앞의logFilter()의 @Bean에주석을달아두자.
+    //    여기에서/error-page/**를제거하면error-page/500 같은내부호출의경우에도인터셉터가 호출된다.
     public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LogFilter());
@@ -42,3 +43,9 @@ public class WebConfig implements WebMvcConfigurer {
         return filterRegistrationBean;
     }
 }
+
+//  filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR);
+//  이렇게두가지를모두넣으면클라이언트요청은물론이고, 오류페이지요청에서도필터가호출된다.
+//  아무것도넣지않으면기본값이DispatcherType.REQUEST이다. 즉클라이언트의요청이있는경우에만 필터가적용된다.
+//  특별히오류페이지경로도필터를적용할것이아니면, 기본값을그대로사용하면된다.
+//  물론오류페이지요청전용필터를적용하고싶으면DispatcherType.ERROR만지정하면된다.

@@ -1,3 +1,5 @@
+//  LogFilter - DispatcherType 로그추가
+
 package hello.exception.filter;
 
 import lombok.extern.slf4j.Slf4j;
