@@ -62,6 +62,15 @@ public class ErrorPageController {
         return "error-page/404";
     }
 
+    //  ErrorPageController - API 응답추가
+    //  produces = MediaType.APPLICATION_JSON_VALUE의뜻은클라이언트가요청하는 HTTP Header의 Accept의값이application/json일때해당메서드가호출된다는것이다.
+    //  결국클라어인트가받고 싶은미디어타입이 json이면이컨트롤러의메서드가호출된다.
+    //  응답데이터를위해서Map을만들고status, message키에값을할당했다.
+    //  Jackson 라이브러리는 Map을 JSON 구조로변환할수있다.
+
+    //  ResponseEntity를사용해서응답하기때문에메시지컨버터가동작하면서클라이언트에 JSON이 반환된다.
+    //  포스트맨을통해서다시테스트해보자.
+    //  HTTP Header에Accept가application/json인것을꼭확인하자.
     @RequestMapping("/error-page/500")
     public String errorPage500(HttpServletRequest request, HttpServletResponse response) {
         log.info("errorPage 500");
@@ -69,6 +78,7 @@ public class ErrorPageController {
         return "error-page/500";
     }
 
+    //  BasicErrorController 코드
     @RequestMapping(value = "/error-page/500", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> errorPage500Api(
             HttpServletRequest request, HttpServletResponse response) {

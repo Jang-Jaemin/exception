@@ -1,3 +1,16 @@
+//  ApiExceptionController -  API 예외컨트롤러
+//  단순히회원을조회하는기능을하나만들었다.
+//  예외테스트를위해 URL에전달된id의값이ex이면 예외가발생하도록코드를심어두었다.
+
+//  Postman으로테스트
+//  HTTP Header에Accept가application/json인것을꼭확인하자.
+
+//  API를요청했는데, 정상의경우 API로 JSON 형식으로데이터가정상반환된다.
+//  그런데오류가발생하면 우리가미리만들어둔오류페이지 HTML이반환된다.
+//  이것은기대하는바가아니다. 클라이언트는정상 요청이든, 오류요청이든 JSON이반환되기를기대한다.
+//  웹브라우저가아닌이상 HTML을직접받아서할 수있는것은별로없다.
+//  문제를해결하려면오류페이지컨트롤러도 JSON 응답을할수있도록수정해야한다.
+
 package hello.exception.api;
 
 import hello.exception.exception.BadRequestException;
